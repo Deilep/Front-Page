@@ -13,7 +13,15 @@ module.exports = {
 		path: path.resolve(__dirname, "dist")
 	},
 	plugins: [
-			new HtmlWebpackPlugin({ template: "./assets/html.template.html" }) 
+			new HtmlWebpackPlugin({ template: "./assets/html.template.html" }),
+			new UglifyJsPlugin(),
+		    new ExtractTextPlugin("styles.css"),
+		    new SWPrecacheWebpackPlugin({
+			    cacheId: "prjdream-" + Math.random(),
+			    filename: "service-worker.js",
+			    statisFileGlobs: [ "dist/*.{js,html,css}", "assets/img/**.*" ],
+			    stripPrefix: "dist/"
+		   })
 			]
 	module: {
 		rules: [
